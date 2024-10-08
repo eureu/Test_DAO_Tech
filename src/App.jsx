@@ -21,6 +21,10 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    const values = JSON.parse(localStorage.getItem("savedValue"));
+  });
+
   return (
     <>
       <div className="main-container">
@@ -36,7 +40,7 @@ function App() {
             />
           )}
           {/* {showTask && <Tasks />} */}
-          <div className="all-tasks"></div>
+          <div className="all-tasks">{}</div>
           <p>Сохраненное значение: {inputValue}</p>
         </div>
       </div>
