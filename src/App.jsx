@@ -5,25 +5,39 @@ import WriteTask from "./WriteTask";
 
 function App() {
   const [showWriter, setShowWriter] = useState(false);
-  const [showTask, setShowTask] = useState(false);
-  const [inputValue, setInputValue] = useState("");
 
+  const [inputValue, setInputValue] = useState("");
+  const [items, setItems] = useState([]);
+
+  // changing input value
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
 
+  // event Enter keydown
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       setShowWriter(false);
-      setShowTask(true);
-      localStorage.setItem("savedValue", inputValue);
-      setInputValue("");
+
+      // localStorage.setItem("savedValue", inputValue);
+      // setInputValue("");
+
+      // upd localStorage value
+      if (inputValue) {
+        const updatedItems = [...items, inputValue];
+        setItems(updatedItems);
+        localStorage.setItem("items", JSON.stringify(updatedItems));
+      }
     }
   };
 
-  useEffect(() => {
-    const values = JSON.parse(localStorage.getItem("savedValue"));
-  });
+  // useEffect(() => {
+  //   const items = JSON.parse(localStorage.getItem("savedValue"));
+  // });
+
+  // {
+  //   items.map((item, index) => <li key={index}>{item}</li>);
+  // }
 
   return (
     <>
@@ -40,7 +54,15 @@ function App() {
             />
           )}
           {/* {showTask && <Tasks />} */}
-          <div className="all-tasks">{}</div>
+          <div className="all-tasks">
+            <ul>
+              {items.map((key, index) => {
+                <li>
+                  key: {key} index: {index}
+                </li>;
+              })}
+            </ul>
+          </div>
           <p>Сохраненное значение: {inputValue}</p>
         </div>
       </div>

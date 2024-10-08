@@ -10,16 +10,21 @@ export default function WriteTask() {
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       setShowWriter(false);
-      localStorage.setItem("savedInput", inputValue);
+      localStorage.setItem("items", inputValue);
       // setInputValue("");
     }
   };
 
+  // useEffect(() => {
+  //   const savedValue = localStorage.getItem("savedInput");
+  //   if (savedValue) {
+  //     setInputValue(savedValue);
+  //   }
+  // }, []);
+
   useEffect(() => {
-    const savedValue = localStorage.getItem("savedInput");
-    if (savedValue) {
-      setInputValue(savedValue);
-    }
+    const storedItems = JSON.parse(localStorage.getItem("items")) || [];
+    setItems(storedItems);
   }, []);
 
   return (
